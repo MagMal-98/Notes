@@ -7,23 +7,27 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.NumberPicker;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.DateFormat;
+import java.util.Calendar;
+
 public class AddEditNoteActivity extends AppCompatActivity {
     public static final String EXTRA_ID =
-            "com.codinginflow.architectureexample.EXTRA_ID";
+            "com.mm.notes.EXTRA_ID";
     public static final String EXTRA_TITLE =
-            "com.codinginflow.architectureexample.EXTRA_TITLE";
+            "com.mm.notes.EXTRA_TITLE";
     public static final String EXTRA_DESCRIPTION =
-            "com.codinginflow.architectureexample.EXTRA_DESCRIPTION";
+            "com.mm.notes.EXTRA_DESCRIPTION";
     public static final String EXTRA_PRIORITY =
-            "com.codinginflow.architectureexample.EXTRA_PRIORITY";
+            "com.mm.notes.EXTRA_PRIORITY";
 
     private EditText editTextTitle;
     private EditText editTextDescription;
-    private NumberPicker numberPickerPriority;
+    //private TextView dateTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +36,7 @@ public class AddEditNoteActivity extends AppCompatActivity {
 
         editTextTitle = findViewById(R.id.edit_text_title);
         editTextDescription = findViewById(R.id.edit_text_description);
-        numberPickerPriority = findViewById(R.id.number_picker_priority);
-
-        numberPickerPriority.setMinValue(1);
-        numberPickerPriority.setMaxValue(10);
+       // dateTextView = findViewById(R.id.text_view_date);
 
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
 
@@ -45,16 +46,20 @@ public class AddEditNoteActivity extends AppCompatActivity {
             setTitle("Edit Note");
             editTextTitle.setText(intent.getStringExtra(EXTRA_TITLE));
             editTextDescription.setText(intent.getStringExtra(EXTRA_DESCRIPTION));
-            numberPickerPriority.setValue(intent.getIntExtra(EXTRA_PRIORITY, 1));
         } else {
             setTitle("Add Note");
         }
+
+//        Calendar calendar = Calendar.getInstance();
+//        String currentDate = DateFormat.getDateInstance(DateFormat.FULL).format(calendar.getTime());
+//        TextView textViewDate = findViewById(R.id.text_view_date);
+//        textViewDate.setText(currentDate);
     }
 
     private void saveNote() {
         String title = editTextTitle.getText().toString();
         String description = editTextDescription.getText().toString();
-        int priority = numberPickerPriority.getValue();
+        //String date = dateTextView.getText().toString();
 
         if (title.trim().isEmpty() || description.trim().isEmpty()) {
             Toast.makeText(this, "Please insert a title and description", Toast.LENGTH_SHORT).show();
@@ -64,7 +69,6 @@ public class AddEditNoteActivity extends AppCompatActivity {
         Intent data = new Intent();
         data.putExtra(EXTRA_TITLE, title);
         data.putExtra(EXTRA_DESCRIPTION, description);
-        data.putExtra(EXTRA_PRIORITY, priority);
 
         int id = getIntent().getIntExtra(EXTRA_ID, -1);
         if (id != -1) {

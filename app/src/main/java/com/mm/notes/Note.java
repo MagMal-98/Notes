@@ -13,17 +13,21 @@ public class Note {
 
     private String description;
 
-    private int priority;
+    //private String date;
 
-    public Note(String title, String description, int priority) {
+
+    public Note(String title, String description) {
         this.title = title;
         this.description = description;
-        this.priority = priority;
     }
 
     public void setId(int id) {
         this.id = id;
     }
+
+//    public void setDate(String date){
+//        this.date = date;
+//    }
 
     public int getId() {
         return id;
@@ -37,7 +41,8 @@ public class Note {
         return description;
     }
 
-    public int getPriority() {
-        return priority;
-    }
+    //public String getDate() {
+        //return date;
+   // }
+
 }
