@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+
 public class NoteAdapter extends ListAdapter<Note, NoteAdapter.NoteHolder> {
     private OnItemClickListener listener;
 
@@ -40,9 +41,11 @@ public class NoteAdapter extends ListAdapter<Note, NoteAdapter.NoteHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull NoteHolder holder, int position) {
+
         Note currentNote = getItem(position);
         holder.textViewTitle.setText(currentNote.getTitle());
         holder.textViewDescription.setText(currentNote.getDescription());
+        holder.textViewDate.setText(currentNote.getDate());
     }
 
     public Note getNoteAt(int position) {
@@ -52,11 +55,13 @@ public class NoteAdapter extends ListAdapter<Note, NoteAdapter.NoteHolder> {
     class NoteHolder extends RecyclerView.ViewHolder {
         private TextView textViewTitle;
         private TextView textViewDescription;
+        private TextView textViewDate;
 
         public NoteHolder(View itemView) {
             super(itemView);
             textViewTitle = itemView.findViewById(R.id.text_view_title);
             textViewDescription = itemView.findViewById(R.id.text_view_description);
+            textViewDate = itemView.findViewById(R.id.text_view_date);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -67,6 +72,7 @@ public class NoteAdapter extends ListAdapter<Note, NoteAdapter.NoteHolder> {
                     }
                 }
             });
+
         }
     }
 
@@ -77,4 +83,5 @@ public class NoteAdapter extends ListAdapter<Note, NoteAdapter.NoteHolder> {
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
     }
+
 }

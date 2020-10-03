@@ -10,6 +10,9 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import java.text.DateFormat;
+import java.util.Calendar;
+
 @Database(entities = {Note.class}, version = 1)
 public abstract class NoteDatabase extends RoomDatabase {
 
@@ -45,9 +48,11 @@ public abstract class NoteDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            noteDao.insert(new Note("Title 1", "Description 1"));
-            noteDao.insert(new Note("Title 2", "Description 2"));
-            noteDao.insert(new Note("Title 3", "Description 3"));
+
+            Calendar calendar = Calendar.getInstance();
+            String currentDate = DateFormat.getDateInstance(DateFormat.MEDIUM).format(calendar.getTime());
+
+            noteDao.insert(new Note("Title 1", "Description 1", currentDate));
             return null;
         }
     }
